@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Paper</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200802080330_paper.cs" />
+    <Compile Remove="Migrations\20200802080330_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200802090020_paper.cs" />
+    <Compile Remove="Migrations\20200802090020_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200802090346_paper.cs" />
+    <Compile Remove="Migrations\20200802090346_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200802091452_paper.cs" />
+    <Compile Remove="Migrations\20200802091452_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200802091650_paper.cs" />
+    <Compile Remove="Migrations\20200802091650_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200802092905_paper.cs" />
+    <Compile Remove="Migrations\20200802092905_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200804144515_paper.cs" />
+    <Compile Remove="Migrations\20200804144515_paper.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Paper.EntityFrameworkCore\Paper.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5" />
+  </ItemGroup>
+
+</Project>
