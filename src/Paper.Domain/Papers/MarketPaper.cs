@@ -20,9 +20,7 @@ namespace Paper.Papers
 
         public virtual string Industry { get; protected set; }
 
-        public virtual ICollection<PaperDayPricePoint> DayExchangeInfo { get; protected set; }
-
-        public virtual ICollection<PaperWeekPricePoint> WeekExchangeInfo { get; protected set; }
+        public virtual ICollection<PaperPricePoint> ExchangeInfo { get; protected set; }
 
         protected MarketPaper() { }
 

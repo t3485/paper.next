@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paper.Repository;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,17 @@ namespace Paper.Papers
 {
     public class MarketPaperService : PaperAppService, IMarketPaperService
     {
-        private IRepository<MarketPaper, int> _paperRepository;
+        //private IRepository<MarketPaper, int> _paperRepository;
+        private IPaperRepository _paperRepository;
 
-        public MarketPaperService(IRepository<MarketPaper, int> paperRepository)
+        public MarketPaperService(IPaperRepository paperRepository)
         {
             _paperRepository = paperRepository;
         }
 
-        public async Task<int> GetListAsync(PagedPaperRequestDto input)
+        public Task<List<MarketPaper>> GetAllPaperAsync(PagedPaperRequestDto input)
         {
-            var list = await _paperRepository.GetListAsync(true);
-
-            var price = list[0].WeekExchangeInfo;
-
-            return 1;
+            return _paperRepository.GetListAsync();
         }
     }
 }

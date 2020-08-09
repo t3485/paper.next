@@ -65,7 +65,7 @@ namespace Paper.EntityFrameworkCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLoggerFactory(LogFactory).UseLazyLoadingProxies();
+            optionsBuilder.UseLoggerFactory(LogFactory);
         }
     }
 }

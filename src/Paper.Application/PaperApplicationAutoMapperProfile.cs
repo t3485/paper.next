@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Paper.Papers;
 
 namespace Paper
 {
@@ -9,6 +10,12 @@ namespace Paper
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
+            CreateInputMap();
+        }
+
+        private void CreateInputMap()
+        {
+            CreateMap<IndustryWheelRequestDto, PagedPaperRequestDto>();
         }
     }
 }

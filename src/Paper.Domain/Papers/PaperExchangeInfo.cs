@@ -8,7 +8,5 @@ namespace Paper.Papers
     public class PaperExchangeInfo
     {
         private PaperPricePoint[] data;
-
-
     }
 }

@@ -10,6 +10,6 @@ namespace Paper.Papers
 {
     public interface IMarketPaperService : IApplicationService, IRemoteService, ITransientDependency
     {
-        Task<int> GetListAsync(PagedPaperRequestDto input);
+        Task<List<MarketPaper>> GetAllPaperAsync(PagedPaperRequestDto input);
     }
 }
