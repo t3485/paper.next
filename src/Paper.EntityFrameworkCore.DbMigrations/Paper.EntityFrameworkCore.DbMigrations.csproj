@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20200802092905_paper.Designer.cs" />
     <Compile Remove="Migrations\20200804144515_paper.cs" />
     <Compile Remove="Migrations\20200804144515_paper.Designer.cs" />
+    <Compile Remove="Migrations\20200804151624_paper.cs" />
+    <Compile Remove="Migrations\20200804151624_paper.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

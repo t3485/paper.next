@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Paper.Papers;
+using Paper.Papers.MA;
 
 namespace Paper
 {
@@ -16,6 +17,7 @@ namespace Paper
         private void CreateInputMap()
         {
             CreateMap<IndustryWheelRequestDto, PagedPaperRequestDto>();
+            CreateMap<Point, PointDto>(); 
         }
     }
 }

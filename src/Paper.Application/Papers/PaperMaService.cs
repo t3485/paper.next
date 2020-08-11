@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Volo.Abp.Application.Services;
+using Volo.Abp.DependencyInjection;
 
 namespace Paper.Papers
 {
-    public class PaperMaService : ApplicationService, IPaperMaService
+    public class PaperMaService : IPaperMaService, ITransientDependency
     {
         public PaperMa GetMa(MarketPaper paper, int n)
         {
@@ -35,7 +36,7 @@ namespace Paper.Papers
                 sum += array[i].Price.Close;
                 if (i < n - 1)
                     continue;
-                ma.Add(new Point(array[i].Date, sum));
+                ma.Add(new Point(array[i].Date, sum / n));
                 sum -= array[i - n + 1].Price.Close;
             }
             return ma;

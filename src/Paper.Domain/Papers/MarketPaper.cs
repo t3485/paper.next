@@ -1,6 +1,7 @@
 ﻿using Paper.Papers.Price;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
@@ -20,6 +21,7 @@ namespace Paper.Papers
 
         public virtual string Industry { get; protected set; }
 
+        [NotMapped]
         public virtual ICollection<PaperPricePoint> ExchangeInfo { get; protected set; }
 
         protected MarketPaper() { }
@@ -29,6 +31,11 @@ namespace Paper.Papers
             Code = code;
             FullName = fullName;
             SimpleName = fullName;
+        }
+
+        public void SetPrice(ICollection<PaperPricePoint> exchangeInfo)
+        {
+            ExchangeInfo = exchangeInfo;
         }
     }
 }

@@ -15,7 +15,8 @@ namespace Paper
         typeof(AbpIdentityApplicationModule),
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
-        typeof(AbpFeatureManagementApplicationModule)
+        typeof(AbpFeatureManagementApplicationModule),
+        typeof(AbpAutoMapperModule)
         )]
     public class PaperApplicationModule : AbpModule
     {

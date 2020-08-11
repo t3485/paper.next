@@ -11,7 +11,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Paper.Migrations
 {
     [DbContext(typeof(PaperMigrationsDbContext))]
-    [Migration("20200804151624_paper")]
+    [Migration("20200811130705_paper")]
     partial class paper
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Paper.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -84,12 +84,9 @@ namespace Paper.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MarketPaperId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MarketPaperId");
+                    b.HasIndex("Code", "Date");
 
                     b.ToTable("AppPaperDayPricePoint");
                 });
@@ -109,12 +106,9 @@ namespace Paper.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MarketPaperId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MarketPaperId");
+                    b.HasIndex("Code", "Date");
 
                     b.ToTable("AppPaperWeekPricePoint");
                 });
@@ -1793,10 +1787,6 @@ namespace Paper.Migrations
 
             modelBuilder.Entity("Paper.Papers.Price.PaperDayPricePoint", b =>
                 {
-                    b.HasOne("Paper.Papers.MarketPaper", null)
-                        .WithMany("DayExchangeInfo")
-                        .HasForeignKey("MarketPaperId");
-
                     b.OwnsOne("Paper.Papers.Price.PaperPrice", "Price", b1 =>
                         {
                             b1.Property<int>("PaperDayPricePointId")
@@ -1839,10 +1829,6 @@ namespace Paper.Migrations
 
             modelBuilder.Entity("Paper.Papers.Price.PaperWeekPricePoint", b =>
                 {
-                    b.HasOne("Paper.Papers.MarketPaper", null)
-                        .WithMany("WeekExchangeInfo")
-                        .HasForeignKey("MarketPaperId");
-
                     b.OwnsOne("Paper.Papers.Price.PaperPrice", "Price", b1 =>
                         {
                             b1.Property<int>("PaperWeekPricePointId")

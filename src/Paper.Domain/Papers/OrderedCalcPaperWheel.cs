@@ -15,7 +15,7 @@ namespace Paper.Papers
         {
             _paper = paper;
             _ma = ma;
-            start = -1;
+            start = _ma[^1].Prices.Length;
         }
 
         public decimal CalcuteWeight(Point point)
@@ -28,7 +28,7 @@ namespace Paper.Papers
             for (int i = _ma.Length - 1; i >= 0; i--)
             {
                 var f = GetStartIndex(_ma[i], time);
-                if (price > f)
+                if (f != -1 && price > _ma[i].Prices[f].Value)
                     return i;
             }
             return 0;
@@ -42,13 +42,12 @@ namespace Paper.Papers
         protected int GetStartIndex(PaperMa ma, DateTime time)
         {
             int i = ma.Prices.Length - start;
-            for (; i >= 0 && i < ma.Prices.Length; i++)
+            for (; i < ma.Prices.Length; i++)
                 if (ma.Prices[i].Time == time)
                     break;
-
             start = ma.Prices.Length - i;
 
-            return i;
+            return i == ma.Prices.Length ? -1 : i;
         }
     }
 }

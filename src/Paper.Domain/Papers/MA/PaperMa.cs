@@ -22,8 +22,8 @@ namespace Paper.Papers.MA
 
         public PaperMa(int cycle, ICollection<Point> prices)
         {
-            if (Prices == null)
-                throw new ArgumentNullException(nameof(Prices));
+            if (prices == null)
+                throw new ArgumentNullException(nameof(prices));
 
             Cycle = cycle;
             Prices = prices.ToArray();

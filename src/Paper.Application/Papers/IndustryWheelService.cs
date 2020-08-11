@@ -1,43 +1,41 @@
-﻿using AutoMapper;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Paper.Papers.MA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.ObjectMapping;
 
 namespace Paper.Papers
 {
-    public class IndustryWheelService : IIndustryWheelService
+    public class IndustryWheelService : PaperAppService, IIndustryWheelService
     {
         private readonly IPaperMaService _maService;
         private readonly IMarketPaperService _paperService;
-        private readonly IMapper _mapper;
 
         public IndustryWheelService(IPaperMaService maService,
-            IMarketPaperService paperService,
-            IMapper mapper)
+            IMarketPaperService paperService)
         {
             _maService = maService;
             _paperService = paperService;
-            _mapper = mapper;
         }
 
         public async Task<List<IndustryWheelDto>> GetAllIndustryWheel(IndustryWheelRequestDto input)
         {
-            var papers = await _paperService.GetAllPaperAsync(_mapper.Map<PagedPaperRequestDto>(input));
+            var papers = await _paperService.GetAllPaperAsync(
+                ObjectMapper.Map<IndustryWheelRequestDto, PagedPaperRequestDto>(input));
 
             return papers.GroupBy(x => x.Industry).Select(x => new IndustryWheelDto()
             {
                 Industry = x.Key,
-                Weight = _mapper.Map<List<PointDto>>(GetIndustryWheel(x))
+                Weight = ObjectMapper.Map<Point[], List<PointDto>>(GetIndustryWheel(x))
             }).ToList();
         }
 
         private Point[] GetIndustryWheel(IEnumerable<MarketPaper> papers)
         {
-            int[] days = { };
+            int[] days = { 5, 10, 20, 30, 60, 120, 250 };
             int i;
             Point[] r = null;
             foreach (var p in papers)
@@ -46,14 +44,19 @@ namespace Paper.Papers
                 for (i = 0; i < days.Length; i++)
                     ma[i] = _maService.GetMa(p, days[i]);
 
+                if (ma[^1].Prices.Length == 0)
+                    continue;
+
                 OrderedCalcPaperWheel paperWheel = new OrderedCalcPaperWheel(ma, p);
 
                 if (r == null)
                     r = new Point[paperWheel.GetCount()];
 
                 i = 0;
+                DateTime time = ma[^1].Prices[0].Time;
                 foreach (var item in p.ExchangeInfo)
-                    r[i++].Value += paperWheel.CalcuteWeight(item.Date, item.Price.Close);
+                    if (item.Date >= time)
+                        r[i++].Value += paperWheel.CalcuteWeight(item.Date, item.Price.Close);
             }
 
             return r;

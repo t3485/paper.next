@@ -22,8 +22,6 @@ namespace Paper.EntityFrameworkCore
                 b.Property(x => x.Code).HasMaxLength(8).IsRequired();
                 b.Property(x => x.SimpleName).HasMaxLength(16).IsRequired();
                 b.Property(x => x.FullName).HasMaxLength(64).IsRequired();
-                //b.HasMany(x => x.DayExchangeInfo).WithOne();
-                //b.HasMany(x => x.WeekExchangeInfo).WithOne();
             });
 
             builder.Entity<PaperDayPricePoint>(b =>

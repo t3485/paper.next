@@ -20,5 +20,9 @@ namespace Paper.Papers.Price
         public virtual decimal Turn { get; protected set; }
 
         public virtual decimal Chg { get; protected set; }
+
+        protected PaperPrice() { }
+
+        public PaperPrice(decimal close) { Close = close; }
     }
 }

@@ -40,18 +40,11 @@ namespace Paper.Migrations
                     High = table.Column<decimal>(nullable: true),
                     Low = table.Column<decimal>(nullable: true),
                     Turn = table.Column<decimal>(nullable: true),
-                    Chg = table.Column<decimal>(nullable: true),
-                    MarketPaperId = table.Column<int>(nullable: true)
+                    Chg = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppPaperDayPricePoint", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppPaperDayPricePoint_AppMarketPaper_MarketPaperId",
-                        column: x => x.MarketPaperId,
-                        principalTable: "AppMarketPaper",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,41 +60,34 @@ namespace Paper.Migrations
                     High = table.Column<decimal>(nullable: true),
                     Low = table.Column<decimal>(nullable: true),
                     Turn = table.Column<decimal>(nullable: true),
-                    Chg = table.Column<decimal>(nullable: true),
-                    MarketPaperId = table.Column<int>(nullable: true)
+                    Chg = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppPaperWeekPricePoint", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppPaperWeekPricePoint_AppMarketPaper_MarketPaperId",
-                        column: x => x.MarketPaperId,
-                        principalTable: "AppMarketPaper",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppPaperDayPricePoint_MarketPaperId",
+                name: "IX_AppPaperDayPricePoint_Code_Date",
                 table: "AppPaperDayPricePoint",
-                column: "MarketPaperId");
+                columns: new[] { "Code", "Date" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppPaperWeekPricePoint_MarketPaperId",
+                name: "IX_AppPaperWeekPricePoint_Code_Date",
                 table: "AppPaperWeekPricePoint",
-                column: "MarketPaperId");
+                columns: new[] { "Code", "Date" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppMarketPaper");
+
+            migrationBuilder.DropTable(
                 name: "AppPaperDayPricePoint");
 
             migrationBuilder.DropTable(
                 name: "AppPaperWeekPricePoint");
-
-            migrationBuilder.DropTable(
-                name: "AppMarketPaper");
         }
     }
 }
