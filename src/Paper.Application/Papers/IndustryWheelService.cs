@@ -55,8 +55,18 @@ namespace Paper.Papers
                 i = 0;
                 DateTime time = ma[^1].Prices[0].Time;
                 foreach (var item in p.ExchangeInfo)
+                {
                     if (item.Date >= time)
+                    {
+                        r[i].Time = item.Date;
                         r[i++].Value += paperWheel.CalcuteWeight(item.Date, item.Price.Close);
+                    }
+                }
+            }
+
+            for (i = 0; i < r?.Length; i++)
+            {
+                r[i].Value /= papers.Count();
             }
 
             return r;

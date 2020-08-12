@@ -74,6 +74,7 @@ namespace Paper.Web
             var hostingEnvironment = context.Services.GetHostingEnvironment();
             var configuration = context.Services.GetConfiguration();
 
+            ConfigureCors(context, configuration);
             ConfigureUrls(configuration);
             ConfigureAuthentication(context, configuration);
             ConfigureAutoMapper();
@@ -90,6 +91,18 @@ namespace Paper.Web
             Configure<AppUrlOptions>(options =>
             {
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+            });
+        }
+
+        private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            context.Services.AddCors(x =>
+            {
+                x.AddPolicy("Default", opt =>
+                {
+                    opt.AllowAnyOrigin();
+                    opt.AllowAnyMethod();
+                });
             });
         }
 
@@ -199,6 +212,8 @@ namespace Paper.Web
                 app.UseErrorPage();
             }
 
+            app.UseCors("Default");
+
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
@@ -221,6 +236,7 @@ namespace Paper.Web
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+
         }
     }
 }
